@@ -26,7 +26,9 @@ db.init_app(app)
 migrate = Migrate(app, db)  # <-- initialize Flask-Migrate here
 
 jwt = JWTManager(app)
-CORS(app)
+
+# Configure CORS with credentials support and specific origin
+CORS(app, supports_credentials=True, origins=['http://localhost:3000'])
 
 # Register auth blueprint
 app.register_blueprint(auth_bp)
