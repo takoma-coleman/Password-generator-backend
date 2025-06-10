@@ -37,5 +37,6 @@ def login():
     if not user or not bcrypt.check_password_hash(user.password_hash, password):
         return jsonify({"msg": "Invalid credentials"}), 401
 
-    token = create_access_token(identity=user.id)
+    # Ensure identity is a string so JWT 'sub' claim is valid
+    token = create_access_token(identity=str(user.id))
     return jsonify({"access_token": token}), 200
